@@ -9,11 +9,13 @@ make kafka-create
 make topics-create
 
 
+## Needs some time to be ready
 ## Create producer and consumer
 make producer-create
 make consumer-create
 
 ## Testing
+make setup
 
 make test
 ```
