@@ -4,9 +4,9 @@
 
 ```bash
 make cluster
-make strimzi-install
-make kafka
-make topics-create
+make kafka-operator
+make kafka-cluster
+make topics
 
 
 ## Needs some time to be ready

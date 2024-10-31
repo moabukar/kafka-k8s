@@ -3,6 +3,8 @@ kind: Pod
 metadata:
   name: kafka-producer
   namespace: kafka
+  labels:
+    app: kafka-producer
 spec:
   containers:
   - name: kafka-producer

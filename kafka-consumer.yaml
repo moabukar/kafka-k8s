@@ -3,6 +3,8 @@ kind: Pod
 metadata:
   name: kafka-consumer
   namespace: kafka
+  labels:
+    app: kafka-consumer
 spec:
   containers:
   - name: kafka-consumer
