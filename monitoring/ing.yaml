@@ -1,0 +1,44 @@
+apiVersion: traefik.io/v1alpha1
+kind: IngressRoute
+metadata:
+  name: prometheus-http
+  namespace: monitoring
+spec:
+  entryPoints:
+    - web
+  routes:
+    - match: Host(`prometheus.127.0.0.1.nip.io`)
+      kind: Rule
+      services:
+        - name: prometheus-kube-prometheus-prometheus
+          port: 9090
+---
+apiVersion: traefik.io/v1alpha1
+kind: IngressRoute
+metadata:
+  name: grafana-http
+  namespace: monitoring
+spec:
+  entryPoints:
+    - web
+  routes:
+    - match: Host(`grafana.127.0.0.1.nip.io`)
+      kind: Rule
+      services:
+        - name: prometheus-grafana
+          port: 80
+---
+apiVersion: traefik.io/v1alpha1
+kind: IngressRoute
+metadata:
+  name: traefik-dashboard
+  namespace: traefik
+spec:
+  entryPoints:
+    - web
+  routes:
+    - match: Host(`traefik.127.0.0.1.nip.io`) && (PathPrefix(`/dashboard`) || PathPrefix(`/api`))
+      kind: Rule
+      services:
+        - name: api@internal
+          kind: TraefikService

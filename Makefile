@@ -58,8 +58,20 @@ test: consumer-create
 	@echo "Running tests"
 	bash scripts/test_consumer_producer.sh $(NAMESPACE)
 
+perf-test:
+	sh scripts/performance_test.sh
+
+ha-test:
+	sh scripts/ha_test.sh
+
+monitor:
+	@chmod +x scripts/monitoring-bootstrap.sh
+	@./scripts/monitoring-bootstrap.sh
+
 # Full setup
 setup: kafka-operator kafka-cluster topics producer-create consumer-create test
+
+setup-monitor: setup monitor
 
 # Clean up the cluster
 clean: kind-delete

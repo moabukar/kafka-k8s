@@ -1,0 +1,36 @@
+apiVersion: v1
+kind: ConfigMap
+metadata:
+  name: kafka-dashboard
+  namespace: monitoring
+  labels:
+    grafana_dashboard: "true"
+data:
+  kafka-dashboard.json: |
+    {
+      "annotations": {
+        "list": []
+      },
+      "editable": true,
+      "gnetId": null,
+      "graphTooltip": 0,
+      "id": 1,
+      "links": [],
+      "panels": [
+        {
+          "title": "Messages In Per Second",
+          "type": "graph",
+          "datasource": "Prometheus",
+          "targets": [
+            {
+              "expr": "rate(kafka_server_brokertopicmetrics_messagesin_total[5m])",
+              "legendFormat": "{{topic}}"
+            }
+          ]
+        }
+      ],
+      "refresh": "5s",
+      "schemaVersion": 16,
+      "title": "Kafka Overview",
+      "version": 1
+    }
