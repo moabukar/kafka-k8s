@@ -1,6 +1,6 @@
-# Kafka on K8s
+# 🚀 Kafka on K8s
 
-## Setup & Testing
+## 🛠️ Setup & Testing
 
 ```bash
 make cluster
@@ -8,44 +8,40 @@ make kafka-operator
 make kafka-cluster
 make topics
 
-
-## Needs some time to be ready
-## Create producer and consumer
+# Wait for the cluster to be ready before proceeding
 make producer-create
 make consumer-create
 
-## Testing
+# Testing environment
 make setup
-
 make test
 ```
 
-## Test messages
+## 💬 Message Testing
 
 ```bash
+# Start a producer session
 kubectl exec -it kafka-producer -n kafka -- sh
-
 bin/kafka-console-producer.sh --broker-list my-kafka-cluster-kafka-bootstrap:9092 --topic my-topic
 
+# Example messages to send:
 > Hello Kafka!
 > This is a test message.
 
-## Different console
-
+# In a different terminal, start a consumer session
 kubectl exec -it kafka-consumer -n kafka -- sh
-
 bin/kafka-console-consumer.sh --bootstrap-server my-kafka-cluster-kafka-bootstrap:9092 --topic my-topic --from-beginning
 
-Watch the messages: The consumer should now display the messages that were produced by the producer. You should see something like this:
+# The consumer will display all messages sent by the producer
 ```
 
-## Automated end to end test
+## 🧪 Automated Testing
 
-```sh
+```bash
 make test
 ```
 
-## Teardown
+## 🧹 Cleanup
 
 ```bash
 make clean
