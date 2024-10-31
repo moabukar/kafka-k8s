@@ -39,6 +39,12 @@ bin/kafka-console-consumer.sh --bootstrap-server my-kafka-cluster-kafka-bootstra
 Watch the messages: The consumer should now display the messages that were produced by the producer. You should see something like this:
 ```
 
+## Automated end to end test
+
+```sh
+make test
+```
+
 ## Teardown
 
 ```bash
