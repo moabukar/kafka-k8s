@@ -1,0 +1,35 @@
+> make perf-test 
+sh scripts/performance_test.sh
+Creating performance test topic...
+Created topic perf-test-topic.
+Running producer performance test...
+49992 records sent, 9998.4 records/sec (9.54 MB/sec), 6.6 ms avg latency, 245.0 ms max latency.
+100000 records sent, 9994.003598 records/sec (9.53 MB/sec), 3.64 ms avg latency, 245.00 ms max latency, 1 ms 50th, 2 ms 95th, 126 ms 99th, 137 ms 99.9th.
+Running consumer performance test...
+start.time, end.time, data.consumed.in.MB, MB.sec, data.consumed.in.nMsg, nMsg.sec, rebalance.time.ms, fetch.time.ms, fetch.MB.sec, fetch.nMsg.sec
+2024-10-31 22:00:45:517, 2024-10-31 22:00:48:856, 95.3674, 28.5617, 100000, 29949.0866, 3161, 178, 535.7721, 561797.7528
+Performance test completed!
+
+########################################################
+
+> make ha-test 
+sh scripts/ha_test.sh
+Creating highly available topic...
+Created topic ha-test-topic.
+Verifying topic configuration...
+[2024-10-31 22:01:56,367] WARN [AdminClient clientId=adminclient-1] The DescribeTopicPartitions API is not supported, using Metadata API to describe topics. (org.apache.kafka.clients.admin.KafkaAdminClient)
+Topic: ha-test-topic    TopicId: LOcgCRLqTpa-4GSEqRWaZA PartitionCount: 3       ReplicationFactor: 3    Configs: min.insync.replicas=2,message.format.version=3.0-IV1
+        Topic: ha-test-topic    Partition: 0    Leader: 1       Replicas: 1,2,0 Isr: 1,2,0      Elr: N/A        LastKnownElr: N/A
+        Topic: ha-test-topic    Partition: 1    Leader: 0       Replicas: 0,1,2 Isr: 0,1,2      Elr: N/A        LastKnownElr: N/A
+        Topic: ha-test-topic    Partition: 2    Leader: 2       Replicas: 2,0,1 Isr: 2,0,1      Elr: N/A        LastKnownElr: N/A
+Simulating broker failure...
+pod "my-kafka-cluster-kafka-0" deleted
+Waiting for broker recovery...
+pod/my-kafka-cluster-kafka-0 condition met
+Verifying topic health after recovery...
+[2024-10-31 22:02:18,880] WARN [AdminClient clientId=adminclient-1] The DescribeTopicPartitions API is not supported, using Metadata API to describe topics. (org.apache.kafka.clients.admin.KafkaAdminClient)
+Topic: ha-test-topic    TopicId: LOcgCRLqTpa-4GSEqRWaZA PartitionCount: 3       ReplicationFactor: 3    Configs: min.insync.replicas=2,message.format.version=3.0-IV1
+        Topic: ha-test-topic    Partition: 0    Leader: 1       Replicas: 1,2,0 Isr: 1,2,0      Elr: N/A        LastKnownElr: N/A
+        Topic: ha-test-topic    Partition: 1    Leader: 1       Replicas: 0,1,2 Isr: 1,2,0      Elr: N/A        LastKnownElr: N/A
+        Topic: ha-test-topic    Partition: 2    Leader: 2       Replicas: 2,0,1 Isr: 2,1,0      Elr: N/A        LastKnownElr: N/A
+HA test completed!
