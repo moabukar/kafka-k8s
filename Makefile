@@ -7,7 +7,7 @@ KUBECONFIG := $(HOME)/.kube/config
 .PHONY: kind-create kind-delete strimzi-install kafka-create topics-create producer-create consumer-create
 
 # Step 1: Create a kind cluster
-kind-create:
+cluster:
 	@echo "Creating a kind cluster"
 	kind create cluster --name $(KIND_CLUSTER_NAME) --config $(KIND_CONFIG)
 
@@ -23,7 +23,7 @@ strimzi-install:
 	kubectl create -f '$(STRIMZI_INSTALL_URL)' -n $(NAMESPACE)
 
 # Step 4: Create Kafka cluster
-kafka-create:
+kafka:
 	@echo "Creating Kafka cluster"
 	kubectl apply -f kafka-cluster.yaml -n $(NAMESPACE)
 
@@ -52,7 +52,7 @@ test:
 	@kubectl get pods -n $(NAMESPACE)
 
 # Full setup
-setup: kind-create strimzi-install kafka-create topics-create producer-create consumer-create
+setup: cluster strimzi-install kafka topics-create producer-create consumer-create
 
 # Clean up the cluster
 clean: kind-delete

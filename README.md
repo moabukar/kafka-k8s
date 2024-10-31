@@ -3,9 +3,9 @@
 ## Setup & Testing
 
 ```bash
-make kind-create
+make cluster
 make strimzi-install
-make kafka-create
+make kafka
 make topics-create
 
 
